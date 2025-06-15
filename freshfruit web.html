@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshFruit Haven - Premium Fruits Delivered</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fruit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item-enter {
+            animation: slideIn 0.3s forwards;
+        }
+        .cart-item-exit {
+            animation: slideOut 0.3s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        .fruit-image {
+            transition: all 0.3s ease;
+        }
+        .fruit-image:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-green-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-apple-alt text-2xl"></i>
+                <h1 class="text-2xl font-bold">FreshFruit Haven</h1>
+            </div>
+            <div class="flex items-center space-x-6">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#home" class="hover:text-green-200 transition">Home</a>
+                    <a href="#fruits" class="hover:text-green-200 transition">Our Fruits</a>
+                    <a href="#about" class="hover:text-green-200 transition">About</a>
+                    <a href="#contact" class="hover:text-green-200 transition">Contact</a>
+                </nav>
+                <button id="cart-btn" class="relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-xl" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-green-700 px-4 py-2">
+            <a href="#home" class="block py-2 hover:bg-green-600 px-2 rounded">Home</a>
+            <a href="#fruits" class="block py-2 hover:bg-green-600 px-2 rounded">Our Fruits</a>
+            <a href="#about" class="block py-2 hover:bg-green-600 px-2 rounded">About</a>
+            <a href="#contact" class="block py-2 hover:bg-green-600 px-2 rounded">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-green-500 to-green-400 text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Fresh Fruits Delivered to Your Door</h2>
+                <p class="text-xl mb-6">Enjoy nature's candy at its freshest. We source directly from local farms for maximum flavor and nutrition.</p>
+                <div class="flex space-x-4">
+                    <a href="#fruits" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">Shop Now</a>
+                    <a href="#about" class="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition">Learn More</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://images.unsplash.com/photo-1619566636858-adf3ef07300b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                     alt="Assorted fresh fruits" 
+                     class="rounded-xl shadow-2xl max-w-md w-full fruit-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Fruits Section -->
+    <section id="fruits" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Our Fresh Selection</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Hand-picked and delivered at peak ripeness for maximum flavor and nutrition.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="fruit-container">
+                <!-- Fruits will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://images.unsplash.com/photo-1603569283847-aa6f0c79a857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Farm fresh fruits" 
+                         class="rounded-xl shadow-lg w-full fruit-image">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">About FreshFruit Haven</h2>
+                    <p class="text-gray-600 mb-4">Founded in 2010, FreshFruit Haven began as a small family farm with a passion for growing the freshest, most flavorful fruits possible.</p>
+                    <p class="text-gray-600 mb-6">Today, we partner with dozens of local farms to bring you a wide variety of seasonal fruits, all grown with sustainable practices and picked at peak ripeness.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-leaf text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Sustainable Farming</h3>
+                                <p class="text-gray-600">We use eco-friendly practices to protect our planet.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-truck text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Fast Delivery</h3>
+                                <p class="text-gray-600">Next-day delivery to ensure maximum freshness.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-heart text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Quality Guarantee</h3>
+                                <p class="text-gray-600">Not satisfied? We'll make it right.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">What Our Customers Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The mangoes I received were the sweetest I've ever tasted! Delivery was fast and the packaging was eco-friendly."</p>
+                    <div class="flex items-center">
+                        <div class="bg-green-100 text-green-800 rounded-full h-10 w-10 flex items-center justify-center font-bold mr-3">JS</div>
+                        <div>
+                            <h4 class="font-semibold">Jamie Smith</h4>
+                            <p class="text-sm text-gray-500">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"I order berries every week for my smoothies. They're always fresh and last longer than supermarket berries."</p>
+                    <div class="flex items-center">
+                        <div class="bg-green-100 text-green-800 rounded-full h-10 w-10 flex items-center justify-center font-bold mr-3">MP</div>
+                        <div>
+                            <h4 class="font-semibold">Maria Perez</h4>
+                            <p class="text-sm text-gray-500">Regular Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The seasonal fruit boxes are a great way to try new fruits. My kids loved discovering dragon fruit for the first time!"</p>
+                    <div class="flex items-center">
+                        <div class="bg-green-100 text-green-800 rounded-full h-10 w-10 flex items-center justify-center font-bold mr-3">TL</div>
+                        <div>
+                            <h4 class="font-semibold">Thomas Lee</h4>
+                            <p class="text-sm text-gray-500">Family Plan Subscriber</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-green-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-2">Get In Touch</h2>
+                <p class="text-center mb-8 text-green-100 max-w-2xl mx-auto">Have questions? Want to special order something? Reach out to our friendly team.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Address</h4>
+                                    <p class="text-green-100">123 Orchard Lane, Freshtown, CA 90210</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Phone</h4>
+                                    <p class="text-green-100">(555) 123-4567</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Email</h4>
+                                    <p class="text-green-100">hello@freshfruithaven.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Hours</h4>
+                                    <p class="text-green-100">Monday - Friday: 8am - 6pm<br>Saturday: 9am - 4pm<br>Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block mb-1">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 rounded-lg bg-green-700 border border-green-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent placeholder-green-300">
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-1">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 rounded-lg bg-green-700 border border-green-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent placeholder-green-300">
+                            </div>
+                            <div>
+                                <label for="message" class="block mb-1">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-green-700 border border-green-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent placeholder-green-300"></textarea>
+                            </div>
+                            <button type="submit" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-apple-alt mr-2"></i> FreshFruit Haven
+                    </h3>
+                    <p class="text-gray-400">Bringing farm-fresh fruits to your table since 2010.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#fruits" class="text-gray-400 hover:text-white transition">Our Fruits</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Information</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Returns & Refunds</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to get updates on new arrivals and special offers.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg bg-gray-800 text-white focus:outline-none w-full">
+                        <button type="submit" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 FreshFruit Haven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Your Cart</h2>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="space-y-4 mb-6">
+                <!-- Cart items will be added here dynamically -->
+                <div class="text-center py-8 text-gray-500" id="empty-cart-message">
+                    <i class="fas fa-shopping-cart text-4xl mb-3"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Subtotal</span>
+                    <span id="cart-subtotal" class="font-semibold">$0.00</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="text-gray-600">Shipping</span>
+                    <span class="font-semibold">Free</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold mb-6">
+                    <span>Total</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition disabled:opacity-50" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 mx-4 relative">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="text-center py-6">
+                <div class="text-green-500 text-5xl mb-4">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Order Confirmed!</h3>
+                <p class="text-gray-600 mb-6">Thank you for your purchase. Your fresh fruits will be delivered soon.</p>
+                <button id="continue-shopping" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fruit data
+        const fruits = [
+            {
+                id: 1,
+                name: "Organic Strawberries",
+                price: 4.99,
+                image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Sweet, juicy strawberries packed with antioxidants. Perfect for desserts or snacking.",
+                unit: "per lb"
+            },
+            {
+                id: 2,
+                name: "Honeycrisp Apples",
+                price: 3.49,
+                image: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Crisp and sweet with a perfect balance of tartness. Great for eating fresh or baking.",
+                unit: "per lb"
+            },
+            {
+                id: 3,
+                name: "Organic Blueberries",
+                price: 5.99,
+                image: "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+                description: "Plump, antioxidant-rich blueberries. Perfect for smoothies, baking, or snacking.",
+                unit: "per pint"
+            },
+            {
+                id: 4,
+                name: "Ripe Mangoes",
+                price: 2.99,
+                image: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1635&q=80",
+                description: "Sweet, tropical mangoes at peak ripeness. The perfect summer treat.",
+                unit: "each"
+            },
+            {
+                id: 5,
+                name: "Seedless Watermelon",
+                price: 6.99,
+                image: "https://images.unsplash.com/photo-1589984662646-e7b2e4962f18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Juicy, refreshing watermelon. Great for picnics and summer gatherings.",
+                unit: "each"
+            },
+            {
+                id: 6,
+                name: "Organic Bananas",
+                price: 0.69,
+                image: "https://images.unsplash.com/photo-1603833665858-e61a17a0b155?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Creamy, potassium-rich bananas. A perfect on-the-go snack.",
+                unit: "each"
+            },
+            {
+                id: 7,
+                name: "Pineapple",
+                price: 3.99,
+                image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Sweet and tangy pineapple. Delicious fresh or grilled.",
+                unit: "each"
+            },
+            {
+                id: 8,
+                name: "Red Grapes",
+                price: 3.29,
+                image: "https://images.unsplash.com/photo-1603569283847-aa6f0c79a857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Sweet, seedless red grapes. Perfect for snacks or fruit salads.",
+                unit: "per lb"
+            }
+        ];
+
+        // Cart state
+        let cart = [];
+        
+        // DOM elements
+        const fruitContainer = document.getElementById('fruit-container');
+        const cartBtn = document.getElementById('cart-btn');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartCount = document.getElementById('cart-count');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const orderModal = document.getElementById('order-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const continueShoppingBtn = document.getElementById('continue-shopping');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Initialize the app
+        function init() {
+            renderFruits();
+            setupEventListeners();
+        }
+
+        // Render fruits to the page
+        function renderFruits() {
+            fruitContainer.innerHTML = '';
+            
+            fruits.forEach(fruit => {
+                const fruitCard = document.createElement('div');
+                fruitCard.className = 'fruit-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300';
+                fruitCard.innerHTML = `
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${fruit.image}" alt="${fruit.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-1">${fruit.name}</h3>
+                        <p class="text-green-600 font-bold text-lg mb-3">$${fruit.price.toFixed(2)} <span class="text-sm font-normal text-gray-500">${fruit.unit}</span></p>
+                        <p class="text-gray-600 text-sm mb-4">${fruit.description}</p>
+                        <button class="add-to-cart w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium transition" data-id="${fruit.id}">
+                            Add to Cart
+                        </button>
+                    </div>
+                `;
+                fruitContainer.appendChild(fruitCard);
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Cart toggle
+            cartBtn.addEventListener('click', toggleCart);
+            closeCartBtn.addEventListener('click', toggleCart);
+            cartOverlay.addEventListener('click', toggleCart);
+            
+            // Add to cart buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('add-to-cart')) {
+                    const fruitId = parseInt(e.target.getAttribute('data-id'));
+                    addToCart(fruitId);
+                }
+                
+                // Remove item from cart
+                if (e.target.classList.contains('remove-item')) {
+                    const fruitId = parseInt(e.target.getAttribute('data-id'));
+                    removeFromCart(fruitId);
+                }
+                
+                // Quantity changes
+                if (e.target.classList.contains('quantity-btn')) {
+                    const fruitId = parseInt(e.target.getAttribute('data-id'));
+                    const isIncrease = e.target.classList.contains('increase');
+                    updateQuantity(fruitId, isIncrease);
+                }
+            });
+            
+            // Checkout
+            checkoutBtn.addEventListener('click', checkout);
+            
+            // Modal controls
+            closeModalBtn.addEventListener('click', closeModal);
+            continueShoppingBtn.addEventListener('click', continueShopping);
+            
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Toggle cart visibility
+        function toggleCart() {
+            cartSidebar.classList.toggle('translate-x-full');
+            cartOverlay.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Add item to cart
+        function addToCart(fruitId) {
+            const fruit = fruits.find(f => f.id === fruitId);
+            
+            // Check if item already in cart
+            const existingItem = cart.find(item => item.id === fruitId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...fruit,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            
+            // Show cart briefly
+            if (cartSidebar.classList.contains('translate-x-full')) {
+                toggleCart();
+                setTimeout(toggleCart, 2000);
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(fruitId) {
+            cart = cart.filter(item => item.id !== fruitId);
+            updateCart();
+        }
+
+        // Update item quantity
+        function updateQuantity(fruitId, isIncrease) {
+            const item = cart.find(item => item.id === fruitId);
+            
+            if (item) {
+                if (isIncrease) {
+                    item.quantity += 1;
+                } else {
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    } else {
+                        removeFromCart(fruitId);
+                        return;
+                    }
+                }
+                
+                updateCart();
+            }
+        }
+
+        // Update cart UI
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartItemsContainer.innerHTML = '';
+                checkoutBtn.disabled = true;
+            } else {
+                emptyCartMessage.classList.add('hidden');
+                
+                cartItemsContainer.innerHTML = '';
+                
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item-enter flex items-start border-b border-gray-100 pb-4';
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg mr-4">
+                        <div class="flex-1">
+                            <h4 class="font-medium text-gray-800">${item.name}</h4>
+                            <p class="text-green-600 font-semibold">$${item.price.toFixed(2)}</p>
+                            <div class="flex items-center mt-1">
+                                <button class="quantity-btn decrease text-gray-500 hover:text-green-600 mr-2" data-id="${item.id}">
+                                    <i class="fas fa-minus text-xs"></i>
+                                </button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn increase text-gray-500 hover:text-green-600 ml-2" data-id="${item.id}">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="remove-item text-gray-400 hover:text-red-500 ml-2" data-id="${item.id}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+                
+                checkoutBtn.disabled = false;
+            }
+            
+            // Update totals
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+            cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+            
+            // Save cart to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Checkout process
+        function checkout() {
+            // In a real app, this would process payment
+            // For demo, we'll just show confirmation
+            toggleCart();
+            orderModal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        // Close modal
+        function closeModal() {
+            orderModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // Continue shopping after checkout
+        function continueShopping() {
+            closeModal();
+            cart = [];
+            updateCart();
+        }
+
+        // Load cart from localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            loadCart();
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            toggleMobileMenu();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
